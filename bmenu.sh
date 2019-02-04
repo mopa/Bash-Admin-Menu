@@ -1,20 +1,40 @@
 #!/bin/bash
-# Bash Menu Script Example
+#
+# ARCH PACKAGE MENU
+#
+# Version: 0.1
+#
+# Author: Pablo M. Pareja
+# License: view file
+#
+# This is a Bash script for Arch based system.
+# You can manage package easily with a simple menu
+#
+######################################################
+
+
 
 PS3='Please enter your choice: '
-options=("Option 1" "Option 2" "Option 3" "Quit")
+options=("Update System" "Search Package" "Remove Package" "Clean Cache"  "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
-        "Option 1")
-            echo "you chose choice 1"
+        "Update System")
+            sudo pacman -Syyu
             ;;
-        "Option 2")
-            echo "you chose choice 2"
+        "Search Package")
+	    read -p "Name of Package: " package
+	    sudo pacman -Ss $package 
             ;;
-        "Option 3")
-            echo "you chose choice $REPLY which is $opt"
+        "Remove Package")
+	    echo "This will remove package with all dependencies and configurations files too"
+	    echo ""
+	    read -p "Name of Package: " package
+	    sudo pacman -Rscn $package
             ;;
+	"Clean Cache")
+	    sudo pacman -Scc
+	    ;;
         "Quit")
             break
             ;;
